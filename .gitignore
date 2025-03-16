@@ -1,1 +1,5 @@
 .github/**
+chicago_copy.csv
+new_york_city_copy.csv
+washington_copy.csv
+.DS_Store
