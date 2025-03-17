@@ -199,6 +199,29 @@ def user_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
+def display_raw_data(df):
+    #ask user if they want raw data
+    print("would you like to see some raw data? 'yes' for data, any input for no")
+
+    #display requested data, 5 lines at a time if possible
+    row_index = 0
+    while(True):
+        if(input().lower() != 'yes'):
+            break
+        else:
+            print(df.iloc[row_index:row_index + 5])
+            row_index += 5
+            if row_index >= df.shape[0]:
+                print("end of data reached!")
+                break
+            else:
+                print("do you want to see more?")
+
+    #loop if the user wants to try new input
+    restart = input('\nWould you like to restart? Enter yes to restart or any other input for no.\n')
+    if restart.lower() != 'yes':
+        break
+
 
 def main():
     while True:
@@ -212,27 +235,8 @@ def main():
         trip_duration_stats(df)
         user_stats(df)
 
-        #ask user if they want raw data
-        print("would you like to see some raw data? 'yes' for data, any input for no")
-
-        #display requested data, 5 lines at a time if possible
-        row_index = 0
-        while(True):
-            if(input().lower() != 'yes'):
-                break
-            else:
-                print(df.iloc[row_index:row_index + 5])
-                row_index += 5
-                if row_index >= df.shape[0]:
-                    print("end of data reached!")
-                    break
-                else:
-                    print("do you want to see more?")
-
-        #loop if the user wants to try new input
-        restart = input('\nWould you like to restart? Enter yes to restart or any other input for no.\n')
-        if restart.lower() != 'yes':
-            break
+        #offer to show user raw data
+        display_raw_data(df)
 
 
 if __name__ == "__main__":
