@@ -12,6 +12,8 @@ Bikeshare Project
 this project gives the user data(such as trip duration, start and end destination, etc.) from US bikeshare based on
 how they answer the prompts(filter by month, day of week, which city)
 
+This project was made with Atom
+
 ### Files used
 bikeshare_2 copy.py
 chicago_copy.csv
