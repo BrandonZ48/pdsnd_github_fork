@@ -2,9 +2,9 @@ import time
 import pandas as pd
 import numpy as np
 
-CITY_DATA = { 'chicago': 'chicago.csv',
-              'new york city': 'new_york_city.csv',
-              'washington': 'washington.csv' }
+CITY_DATA = { 'chicago': 'chicago_copy.csv',
+              'new york city': 'new_york_city_copy.csv',
+              'washington': 'washington_copy.csv' }
 
 months_list = ["all","january","february",
 "march","april","may","june"]
@@ -121,7 +121,6 @@ def time_stats(df):
     # display the most common month
     print("most popular month for travel: ",df['month'].mode()[0])
 
-
     # display the most common day of week
     print("most popular day of the week for travel: ",df['day of week'].mode()[0])
 
@@ -199,6 +198,24 @@ def user_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
+def display_raw_data(df):
+    #ask user if they want raw data
+    print("would you like to see some raw data? 'yes' for data, any input for no")
+
+    #display requested data, 5 lines at a time if possible
+    row_index = 0
+    while(True):
+        if(get_input(["yes","no"]) != 'yes'):
+            print("continuing")
+            break
+        else:
+            print(df.iloc[row_index:row_index + 5])
+            row_index += 5
+            if row_index >= df.shape[0]:
+                print("end of data reached!")
+                break
+            else:
+                print("do you want to see more?")
 
 def main():
     while True:
@@ -212,28 +229,10 @@ def main():
         trip_duration_stats(df)
         user_stats(df)
 
-        #ask user if they want raw data
-        print("would you like to see some raw data? 'yes' for data, any input for no")
-
-        #display requested data, 5 lines at a time if possible
-        row_index = 0
-        while(True):
-            if(input().lower() != 'yes'):
-                break
-            else:
-                print(df.iloc[row_index:row_index + 5])
-                row_index += 5
-                if row_index >= df.shape[0]:
-                    print("end of data reached!")
-                    break
-                else:
-                    print("do you want to see more?")
-
-        #loop if the user wants to try new input
-        restart = input('\nWould you like to restart? Enter yes to restart or any other input for no.\n')
-        if restart.lower() != 'yes':
+        #offer to show user raw data
+        display_raw_data(df)
+        if get_input(["yes","no"],'\nWould you like to restart? Enter yes to restart or no to stop program.\n') != 'yes':
             break
-
 
 if __name__ == "__main__":
 	main()
